@@ -1,9 +1,8 @@
 package com.demo.ecole;
 
-import com.demo.ecole.entities.Classe;
-import com.demo.ecole.entities.Etudiant;
-import com.demo.ecole.entities.Matiere;
-import com.demo.ecole.entities.Professeur;
+import com.demo.ecole.entities.Group;
+import com.demo.ecole.entities.Student;
+import com.demo.ecole.entities.Professor;
 import com.demo.ecole.services.MyService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +19,7 @@ public class EcoleApplication {
 	@Bean
 	CommandLineRunner start(MyService etudiantService){
 		return args -> {
-			Etudiant etudiantA = new Etudiant();
+			Student etudiantA = new Student();
 			etudiantA.setNom("Mica");
 			etudiantA.setPrenom("Alex");
 			etudiantA.setAdresse("etudBadresse");
@@ -28,7 +27,7 @@ public class EcoleApplication {
 			etudiantA.setEmail("etudeBmail");
 			etudiantA.setVille("etudBville");
 			etudiantA.setMotpasse("etudBpasswd");
-			Etudiant etudiantB = new Etudiant();
+			Student etudiantB = new Student();
 			etudiantB.setNom("Dupond");
 			etudiantB.setPrenom("Elodie");
 			etudiantB.setAdresse("etudAadresse");
@@ -61,16 +60,16 @@ public class EcoleApplication {
 			etudiantService.ajouterMatiere(matiereD);
 
 
-			Classe classeA = new Classe();
+			Group classeA = new Group();
 			classeA.setNom("classeA");
-			Classe classeB= new Classe();
+			Group classeB= new Group();
 			classeB.setNom("classeB");
 
 
 			etudiantService.ajouterClasse(classeA);
 			etudiantService.ajouterClasse(classeB);
 
-			Professeur profA = new Professeur();
+			Professor profA = new Professor();
 			profA.setNom("profAnom");
 			profA.setPrenom("profAprenom");
 			profA.setAdresse("profAadresse");
@@ -79,7 +78,7 @@ public class EcoleApplication {
 			profA.setVille("profAville");
 			profA.setMotpasse("profApasswd");
 
-			Professeur profB = new Professeur();
+			Professor profB = new Professor();
 			profB.setNom("profBnom");
 			profB.setPrenom("profBprenom");
 			profB.setAdresse("profBadresse");
@@ -116,7 +115,7 @@ public class EcoleApplication {
 
 
 
-			Etudiant e = etudiantService.findEtudiantByEmail("etudeBmail");
+			Student e = etudiantService.findEtudiantByEmail("etudeBmail");
 			System.out.println("voici la liste des matière du monsieur :"+e.getNom());
 			//e.getList_matiere().stream().forEach(s->System.out.println(s.getNom()));
 			e.getList_matiere().stream().forEach(et -> System.out.println(et.getMatiere().getNom()));

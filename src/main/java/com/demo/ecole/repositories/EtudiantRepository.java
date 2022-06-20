@@ -1,15 +1,15 @@
 package com.demo.ecole.repositories;
 
-import com.demo.ecole.entities.Classe;
-import com.demo.ecole.entities.Etudiant;
+import com.demo.ecole.entities.Group;
+import com.demo.ecole.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface EtudiantRepository extends JpaRepository<Etudiant, String> {
+public interface EtudiantRepository extends JpaRepository<Student, String> {
 
-    Etudiant findByEmail(String email);
-    List<Etudiant> findByClasse(Classe classeName);
-    Etudiant findByNomAndPrenom(String nom, String prenom);
-    Etudiant findByEmailAndMotpasse(String email, String motpasse);
+    Student findByEmail(String email);
+    List<Student> findByClasse(Group classeName);
+    Student findByNomAndPrenom(String nom, String prenom);
+    Student findByEmailAndMotpasse(String email, String motpasse);
 }

@@ -13,21 +13,20 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Classe {
+public class Group {
 
     @Id
     private String id;
-    private String nom;
-    @OneToMany( mappedBy = "classe",fetch = FetchType.EAGER)
+    private String name;
+    @OneToMany(mappedBy="list_group" ,fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     @EqualsAndHashCode.Exclude
-    private Set<Etudiant> list_etudiant=new HashSet<>();
-    @ManyToMany( fetch = FetchType.EAGER)
-    @ToString.Exclude
-    @JsonIgnore
-    @EqualsAndHashCode.Exclude
-    private Set<Professeur> list_professeur=new HashSet<>();
+    private Set<Student> list_students=new HashSet<>();
+
+    private Set<Professor> list_professors=new HashSet<>();
+    @ManyToOne
+    private Subject subject;
 
 
 

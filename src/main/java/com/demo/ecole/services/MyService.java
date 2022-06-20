@@ -20,7 +20,7 @@ public class MyService {
     private ClasseRepository classeRepository;
     private MatiereEtudiantRepository matiereEtudiantRepository;
 
-    public Etudiant ajouterEtudiant(Etudiant e){
+    public Student ajouterEtudiant(Student e){
         e.setId(UUID.randomUUID().toString());
         return etudiantRepository.save(e);
     }
@@ -30,12 +30,12 @@ public class MyService {
         return matiereRepository.save(m);
     }
 
-    public Classe ajouterClasse(Classe c){
+    public Group ajouterClasse(Group c){
         c.setId(UUID.randomUUID().toString());
         return classeRepository.save(c);
     }
 
-    public Professeur ajouterProfesseur(Professeur p){
+    public Professor ajouterProfesseur(Professor p){
         p.setId(UUID.randomUUID().toString());
         return professeurRepository.save(p);
     }
@@ -47,7 +47,7 @@ public class MyService {
 
 
     public void ajouterMatiereToEtudiant(String email, String matiere,double note){
-        Etudiant e = etudiantRepository.findByEmail(email);
+        Student e = etudiantRepository.findByEmail(email);
         Matiere m = matiereRepository.findByNom(matiere);
         EtudiantMatire em = new EtudiantMatire();
         em.setEtudiant(e);
@@ -60,14 +60,14 @@ public class MyService {
     }
 
     public void ajouterClasseToEtudiant(String email, String classe){
-        Etudiant e = etudiantRepository.findByEmail(email);
-        Classe c = classeRepository.findByNom(classe);
+        Student e = etudiantRepository.findByEmail(email);
+        Group c = classeRepository.findByNom(classe);
         e.setClasse(c);
         c.getList_etudiant().add(e);
     }
 
     public void ajouterMatiereToProfesseur(String email, String matiere){
-        Professeur p = professeurRepository.findByEmail(email);
+        Professor p = professeurRepository.findByEmail(email);
         Matiere m = matiereRepository.findByNom(matiere);
         p.getList_matiere().add(m);
         m.getList_professeur().add(p);
@@ -75,36 +75,36 @@ public class MyService {
     }
 
     public void ajouterClasseToProfesseur(String email, String classe){
-        Professeur p = professeurRepository.findByEmail(email);
-        Classe c = classeRepository.findByNom(classe);
+        Professor p = professeurRepository.findByEmail(email);
+        Group c = classeRepository.findByNom(classe);
         p.getList_classe().add(c);
         c.getList_professeur().add(p);
 
     }
 
-    public List<Classe> findAllClasses(){
+    public List<Group> findAllClasses(){
         return classeRepository.findAll();
     }
 
     public List<Matiere> findAllMatieres(){
         return matiereRepository.findAll();
     }
-    public Etudiant findEtudiantByEmail(String email){
+    public Student findEtudiantByEmail(String email){
         return etudiantRepository.findByEmail(email);
     }
-    public List<Etudiant> findAllStudents(){
+    public List<Student> findAllStudents(){
         return etudiantRepository.findAll();
     }
 
     public EtudiantMatire findEtudiantMatiereByEtudiantidAndMatiereid(String etudiantid, String matiere){
-        Etudiant e = etudiantRepository.findById(etudiantid).get();
+        Student e = etudiantRepository.findById(etudiantid).get();
         Matiere m = matiereRepository.findByNom(matiere);
         return matiereEtudiantRepository.findByEtudiantAndMatiere(e,m).get(0);
 
 
     }
 
-    public Professeur findProffesseurByEmail(String email){
+    public Professor findProffesseurByEmail(String email){
         return professeurRepository.findByEmail(email);
     }
 
@@ -120,7 +120,7 @@ public class MyService {
         Matiere m = matiereRepository.findByNom(matiere);
         em.setMatiere(m);
         String[] nomcomplet = etudiant.split(" ");
-        Etudiant e = etudiantRepository.findByNomAndPrenom(nomcomplet[0], nomcomplet[1]);
+        Student e = etudiantRepository.findByNomAndPrenom(nomcomplet[0], nomcomplet[1]);
         em.setEtudiant(e);
         ajouterEtudiantMatiere(em);
     }
@@ -130,16 +130,16 @@ public class MyService {
         matiereEtudiantRepository.delete(em);
     }
 
-    public List<Etudiant> findEtudiantsByClasseName(String classeName){
-        Classe c = classeRepository.findByNom(classeName);
+    public List<Student> findEtudiantsByClasseName(String classeName){
+        Group c = classeRepository.findByNom(classeName);
         return etudiantRepository.findByClasse(c);
     }
 
-    public Etudiant findStudentByEmailAndMotpasse(String email, String pass){
+    public Student findStudentByEmailAndMotpasse(String email, String pass){
         return etudiantRepository.findByEmailAndMotpasse(email,pass);
     }
 
-    public Professeur findProfByEmailAndMotpasse(String email, String pass){
+    public Professor findProfByEmailAndMotpasse(String email, String pass){
         return professeurRepository.findByEmailAndMotpasse(email,pass);
     }
 }

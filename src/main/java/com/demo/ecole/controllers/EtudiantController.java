@@ -1,14 +1,9 @@
 package com.demo.ecole.controllers;
 
-import com.demo.ecole.entities.Classe;
-import com.demo.ecole.entities.Etudiant;
-import com.demo.ecole.entities.EtudiantMatire;
-import com.demo.ecole.entities.Professeur;
-import com.demo.ecole.exceptions.EtudiantNotFoundException;
-import com.demo.ecole.repositories.EtudiantRepository;
+import com.demo.ecole.entities.Student;
+import com.demo.ecole.entities.Professor;
 import com.demo.ecole.services.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,31 +17,31 @@ public class EtudiantController {
     private MyService myService;
 
      @GetMapping("/etudiant/{email}")
-     Etudiant getEtudiantById(@PathVariable String email) {
+     Student getEtudiantById(@PathVariable String email) {
 
         return myService.findEtudiantByEmail(email);
     }
 
     @GetMapping("/authentification/student/{email}/{password}")
-    Etudiant authentificationStudent(@PathVariable String email,@PathVariable String password) {
+    Student authentificationStudent(@PathVariable String email, @PathVariable String password) {
 
         return myService.findStudentByEmailAndMotpasse(email,password);
     }
 
     @GetMapping("/authentification/prof/{email}/{password}")
-    Professeur authentificationProf(@PathVariable String email, @PathVariable String password) {
+    Professor authentificationProf(@PathVariable String email, @PathVariable String password) {
 
         return myService.findProfByEmailAndMotpasse(email,password);
     }
 
     @GetMapping("/etudiants")
-    List<Etudiant> getEtudiants() {
+    List<Student> getEtudiants() {
 
         return myService.findAllStudents();
     }
 
     @GetMapping("/etudiants/classes/{classeName}")
-    List<Etudiant> getclasses(@PathVariable String classeName) {
+    List<Student> getclasses(@PathVariable String classeName) {
 
         return myService.findEtudiantsByClasseName(classeName);
     }
